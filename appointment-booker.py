@@ -57,7 +57,7 @@ while no_success:
     # Input the password
     password_input.send_keys("somepassword!")
 
-    # Wit for the policy confirmation checkbox to be clickable
+    # Wait for the policy confirmation checkbox to be clickable
     policy_checkbox = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located((By.XPATH, "/html/body/div[5]/main/div[3]/div/div[1]/div/form/div[3]/label/div"))
     )
@@ -137,7 +137,6 @@ while no_success:
             day = 1
             date_day = ""
             if not dates:
-                #print("nicht gut diese")
                 sleep(5)
                 driver.close()
                 break
@@ -166,9 +165,6 @@ while no_success:
                 driver.close()
                 break            
             
-            #date_int = int(date_month+date_day)
-            #date_month = date_int // 100
-            #date_day = date_int % 100
             match date_month:
                 case "05":
                     month_str = "May"
@@ -187,7 +183,7 @@ while no_success:
                         break
 
             dropdown.send_keys(Keys.TAB)
-            # Loop to navigate to the desired month (December)
+            # Loop to navigate to the desired month (let say May)
             current_month = driver.find_element(By.CLASS_NAME, 'ui-datepicker-month').text
             while current_month != month_str:
                 try:
@@ -195,7 +191,7 @@ while no_success:
                     next_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'ui-datepicker-next')))
                     next_button.click()
                     
-                    # Check if the current month is December
+                    # Check if the current month is May
                     current_month = driver.find_element(By.CLASS_NAME, 'ui-datepicker-month').text
                     print(current_month)
                     if current_month == month_str:
